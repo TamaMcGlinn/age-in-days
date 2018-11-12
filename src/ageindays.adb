@@ -51,11 +51,20 @@ begin
           MonthsOld : DifferenceMonths;
           DaysOld : DifferenceDays;
           TotalDaysOld : NumberOfDaysOld;
+
+          function GetNounSuffix(num : Integer) return string is
+          begin
+            if num = 1 then 
+              return "";
+            end if;
+            return "s";
+          end GetNounSuffix;
         begin
           GetAgeDifference(BirthDay, BirthMonth, BirthYear, Today_Day, Today_Month, Today_Year,
                            DaysOld, MonthsOld, YearsOld, TotalDaysOld);
-          Put_Line("You are" & YearsOld'Image & " years," & MonthsOld'Image 
-                             & " months and" & DaysOld'Image & " days old.");
+          Put_Line("You are" & YearsOld'Image & " year" & GetNounSuffix(Integer(YearsOld)) & "," 
+                             & MonthsOld'Image & " month" & GetNounSuffix(Integer(MonthsOld)) & " and" 
+                             & DaysOld'Image & " day" & GetNounSuffix(Integer(DaysOld)) & " old.");
           Put_Line("Total age in days:" & TotalDaysOld'Image);
         end;
       end if;
