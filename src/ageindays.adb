@@ -62,10 +62,34 @@ begin
         begin
           GetAgeDifference(BirthDay, BirthMonth, BirthYear, Today_Day, Today_Month, Today_Year,
                            DaysOld, MonthsOld, YearsOld, TotalDaysOld);
-          Put_Line("You are" & YearsOld'Image & " year" & GetNounSuffix(Integer(YearsOld)) & "," 
-                             & MonthsOld'Image & " month" & GetNounSuffix(Integer(MonthsOld)) & " and" 
-                             & DaysOld'Image & " day" & GetNounSuffix(Integer(DaysOld)) & " old.");
-          Put_Line("Total age in days:" & TotalDaysOld'Image);
+          declare
+            yearString : string := YearsOld'Image & " year" & GetNounSuffix(Integer(YearsOld));
+            monthString : string := MonthsOld'Image & " month" & GetNounSuffix(Integer(MonthsOld));
+            dayString : string := DaysOld'Image & " day" & GetNounSuffix(Integer(DaysOld));
+
+            function GetYearMonthDayString return string is
+            begin
+              if MonthsOld = 0 then
+                if DaysOld = 0 then
+                  return "You are" & yearString & " old today. Happy birthday!";
+                end if;
+                if YearsOld = 0 then
+                  return "You are" & dayString & " old.";
+                end if;
+                return "You are" & yearString & " and" & dayString & " old.";
+              end if;
+              if YearsOld = 0 then
+                if DaysOld = 0 then
+                  return "You are" & monthString & " old.";
+                end if;
+                return "You are" & monthString & " and" & dayString & " old.";
+              end if;
+              return "You are" & yearString & "," & monthString & " and" & dayString & " old.";
+            end GetYearMonthDayString;
+          begin
+            Put_Line(GetYearMonthDayString);
+            Put_Line("Total age in days:" & TotalDaysOld'Image);
+          end;
         end;
       end if;
     end;
