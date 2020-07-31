@@ -1,20 +1,38 @@
 # Age in days
 
-If you enter you birthdate, this program will tell you exactly how old you are.
+If you enter your birthdate, this program will tell you exactly how old you are.
 It was written as practice to learn Ada.
 Feel free to submit issues or pullrequests if you can find ways to improve the code; it will probably teach us both new things.
 
 # Requirements
 
-You need an installation of GNAT; this comes bundled with AdaCore's GPS, but you can also install it standalone, for example on Ubuntu/Debian with:
+You need GNAT and gprbuild; this comes bundled with AdaCore's GPS, but you can also install it standalone, for example on Ubuntu/Debian with:
 
 ```
-sudo apt install build-essential gnat gcc
+sudo apt install build-essential gnat gcc gprbuild
 ```
 
 # Compile
 
-There is a makefile included which calls gnatmake. It could just as well be done using gprbuild - I will leave that as an exercise for the reader.
+There is a makefile included which calls gprbuild.
+
+```
+tama@tardis:~/code/ada/ageindays$ make
+gprbuild
+using project file ageindays.gpr
+Setup
+   [mkdir]        object directory for project Ageindays
+Compile
+   [Ada]          ageindays.adb
+   [Ada]          agecalculator.adb
+   [Ada]          dateinput.adb
+   [Ada]          stringutil.adb
+Bind
+   [gprbind]      ageindays.bexch
+   [Ada]          ageindays.ali
+Link
+   [link]         ageindays.adb
+```
 
 # Example run:
 
