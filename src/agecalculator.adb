@@ -23,11 +23,6 @@ package body AgeCalculator is
     return (if month = 1 then 12 else month - 1);
   end PreviousMonth;
 
-  function NextMonth(month : in Month_Number) return Month_Number is
-  begin
-    return (if month = 12 then 1 else month + 1);
-  end NextMonth;
-
   function WrapMonth(month : in Integer) return Month_Number is
   begin
     return ((month - 1) mod 12) + 1;
@@ -53,13 +48,13 @@ package body AgeCalculator is
     end if;
 
     declare
-      BirthDayBeforeLeapDay : Boolean := birth_month <= 2;
+      BirthDayBeforeLeapDay : constant Boolean := birth_month <= 2;
     begin
       TotalDaysOld := 0;
       for year in birth_year..Year_Number(Integer(birth_year) + Integer(YearsOld) - 1) loop
         declare
-          LeapDayYear : Year_Number := (if BirthDayBeforeLeapDay then year else year + 1);
-          DaysInYear : NumberOfDaysOld := (if IsLeapYear(LeapDayYear) then 366 else 365);
+          LeapDayYear : constant Year_Number := (if BirthDayBeforeLeapDay then year else year + 1);
+          DaysInYear : constant NumberOfDaysOld := (if IsLeapYear(LeapDayYear) then 366 else 365);
         begin
           TotalDaysOld := TotalDaysOld + DaysInYear;
         end;
@@ -72,13 +67,13 @@ package body AgeCalculator is
       TotalDaysOld := TotalDaysOld + 
         NumberOfDaysOld(DaysInMonth(birth_month, birth_year) - birth_day);
       declare
-        beginMonth : Integer := birth_month + 1;
-        endMonth : Integer := today_month - 1 + (if today_month < beginMonth then 12 else 0);
+        beginMonth : constant Integer := birth_month + 1;
+        endMonth : constant Integer := today_month - 1 + (if today_month < beginMonth then 12 else 0);
       begin
         for month_unwrapped in beginMonth..endMonth loop
           declare
-            month : Month_Number := Month_Number(WrapMonth(month_unwrapped));
-            yearOfMonth : Year_Number := 
+            month : constant Month_Number := WrapMonth(month_unwrapped);
+            yearOfMonth : constant Year_Number := 
               (if month > today_month then today_year - 1 else today_year);
           begin
             TotalDaysOld := TotalDaysOld + NumberOfDaysOld(DaysInMonth(month, yearOfMonth));

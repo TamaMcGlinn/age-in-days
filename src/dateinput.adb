@@ -1,4 +1,5 @@
 pragma Ada_2012;
+
 package body DateInput is
 
   package Month_String is new Ada.Strings.Bounded.Generic_Bounded_Length(13);

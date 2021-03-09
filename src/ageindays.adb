@@ -12,7 +12,7 @@ procedure Ageindays is
   Today_Year : Year_Number;
 begin
   declare
-    TodayTime : Time := Clock;
+    TodayTime : constant Time := Clock;
     Today_Seconds : Day_Duration;
   begin
     Split(TodayTime, Today_Year, Today_Month, Today_Day, Today_Seconds);
